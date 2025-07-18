@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MASi Interactive Story</title>
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <script src="https://unpkg.com/framer-motion@11.0.0/dist/framer-motion.js"></script>
+    <link rel="stylesheet" href="https://unpkg.com/lucide-static@0.309.0/font/lucide.css">
+    <style>
+        body {
+            margin: 0;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+        }
+        #root {
+            width: 100%;
+            height: 100vh;
+        }
+    </style>
+</head>
+<body>
+    <div id="root"></div>
+    <script type="text/babel" data-type="module">
+        const { useState, useEffect, useRef } = React;
+        const { motion, useScroll, useTransform, AnimatePresence } = window['framer-motion'];
+
+        // Icon components using Lucide font
+        const BookOpen = () => <i className="lucide-book-open" style={{width: 24, height: 24}}></i>;
+        const Brain = () => <i className="lucide-brain" style={{width: 24, height: 24}}></i>;
+        const Sparkles = () => <i className="lucide-sparkles" style={{width: 24, height: 24}}></i>;
+        const GraduationCap = () => <i className="lucide-graduation-cap" style={{width: 24, height: 24}}></i>;
+        const Heart = () => <i className="lucide-heart" style={{width: 24, height: 24}}></i>;
+        const Lightbulb = () => <i className="lucide-lightbulb" style={{width: 24, height: 24}}></i>;
+        const Users = () => <i className="lucide-users" style={{width: 24, height: 24}}></i>;
+        const Zap = () => <i className="lucide-zap" style={{width: 24, height: 24}}></i>;
+        const Star = () => <i className="lucide-star" style={{width: 24, height: 24}}></i>;
+        const Compass = () => <i className="lucide-compass" style={{width: 24, height: 24}}></i>;
+        const Rocket = () => <i className="lucide-rocket" style={{width: 24, height: 24}}></i>;
+
+        const MasiInteractiveStory = () => {
+            // Include the entire component code here
+            const [activeSection, setActiveSection] = useState(0);
+            const containerRef = useRef(null);
+            const { scrollYProgress } = useScroll({
+                target: containerRef,
+                offset: ["start start", "end end"]
+            });
+
+            const sections = [
+                {
+                    id: 0,
+                    title: "Welcome to MASi",
+                    subtitle: "Your AI-Powered Learning Journey Begins",
+                    content: "Discover a revolutionary way to learn, where artificial intelligence meets personalized education.",
+                    bgColor: "linear-gradient(135deg, #667eea 0%, #764ba2 100%)",
+                    icon: BookOpen,
+                    animation: "fade"
+                },
+                {
+                    id: 1,
+                    title: "Adaptive Learning",
+                    subtitle: "Education That Evolves With You",
+                    content: "MASi adapts to your unique learning style, pace, and preferences, creating a truly personalized experience.",
+                    bgColor: "linear-gradient(135deg, #f093fb 0%, #f5576c 100%)",
+                    icon: Brain,
+                    animation: "slide"
+                },
+                {
+                    id: 2,
+                    title: "AI-Powered Insights",
+                    subtitle: "Smart Analytics for Smarter Learning",
+                    content: "Get real-time feedback and insights powered by advanced AI to optimize your learning journey.",
+                    bgColor: "linear-gradient(135deg, #4facfe 0%, #00f2fe 100%)",
+                    icon: Sparkles,
+                    animation: "scale"
+                },
+                {
+                    id: 3,
+                    title: "Comprehensive Courses",
+                    subtitle: "From Basics to Advanced",
+                    content: "Access a vast library of courses designed by experts and enhanced by AI for maximum effectiveness.",
+                    bgColor: "linear-gradient(135deg, #fa709a 0%, #fee140 100%)",
+                    icon: GraduationCap,
+                    animation: "rotate"
+                },
+                {
+                    id: 4,
+                    title: "Community Learning",
+                    subtitle: "Connect, Collaborate, Grow",
+                    content: "Join a vibrant community of learners, share insights, and grow together with AI-facilitated discussions.",
+                    bgColor: "linear-gradient(135deg, #a8edea 0%, #fed6e3 100%)",
+                    icon: Users,
+                    animation: "fade"
+                },
+                {
+                    id: 5,
+                    title: "Start Your Journey",
+                    subtitle: "The Future of Learning Awaits",
+                    content: "Join thousands of learners who are already transforming their lives with MASi.",
+                    bgColor: "linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%)",
+                    icon: Rocket,
+                    animation: "scale"
+                }
+            ];
+
+            useEffect(() => {
+                const unsubscribe = scrollYProgress.on("change", (latest) => {
+                    const sectionIndex = Math.min(
+                        Math.floor(latest * sections.length),
+                        sections.length - 1
+                    );
+                    setActiveSection(sectionIndex);
+                });
+                return () => unsubscribe();
+            }, [scrollYProgress, sections.length]);
+
+            const backgroundY = useTransform(scrollYProgress, [0, 1], ['0%', '-50%']);
+            const opacity = useTransform(scrollYProgress, [0, 0.2, 0.8, 1], [1, 0.8, 0.8, 1]);
+
+            return (
+                <div ref={containerRef} style={{ height: `${sections.length * 100}vh`, position: 'relative' }}>
+                    <motion.div 
+                        style={{
+                            position: 'fixed',
+                            top: 0,
+                            left: 0,
+                            right: 0,
+                            bottom: 0,
+                            y: backgroundY,
+                            opacity
+                        }}
+                    >
+                        <AnimatePresence mode="wait">
+                            <motion.div
+                                key={activeSection}
+                                initial={{ opacity: 0 }}
+                                animate={{ opacity: 1 }}
+                                exit={{ opacity: 0 }}
+                                transition={{ duration: 0.5 }}
+                                style={{
+                                    position: 'absolute',
+                                    inset: 0,
+                                    background: sections[activeSection].bgColor
+                                }}
+                            />
+                        </AnimatePresence>
+                    </motion.div>
+
+                    <div style={{ position: 'fixed', top: 0, left: 0, right: 0, bottom: 0, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                        <AnimatePresence mode="wait">
+                            <motion.div
+                                key={activeSection}
+                                initial={{ opacity: 0, y: 50 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                exit={{ opacity: 0, y: -50 }}
+                                transition={{ duration: 0.5 }}
+                                style={{
+                                    textAlign: 'center',
+                                    color: 'white',
+                                    padding: '0 20px',
+                                    maxWidth: '800px'
+                                }}
+                            >
+                                <motion.div
+                                    initial={{ scale: 0 }}
+                                    animate={{ scale: 1 }}
+                                    transition={{ delay: 0.2, type: "spring", stiffness: 200 }}
+                                    style={{
+                                        display: 'inline-flex',
+                                        padding: '20px',
+                                        borderRadius: '50%',
+                                        background: 'rgba(255, 255, 255, 0.2)',
+                                        marginBottom: '2rem'
+                                    }}
+                                >
+                                    {React.createElement(sections[activeSection].icon)}
+                                </motion.div>
+
+                                <motion.h1
+                                    initial={{ x: -100, opacity: 0 }}
+                                    animate={{ x: 0, opacity: 1 }}
+                                    transition={{ delay: 0.3 }}
+                                    style={{
+                                        fontSize: 'clamp(2rem, 8vw, 4rem)',
+                                        fontWeight: 'bold',
+                                        marginBottom: '1rem'
+                                    }}
+                                >
+                                    {sections[activeSection].title}
+                                </motion.h1>
+
+                                <motion.h2
+                                    initial={{ x: 100, opacity: 0 }}
+                                    animate={{ x: 0, opacity: 1 }}
+                                    transition={{ delay: 0.4 }}
+                                    style={{
+                                        fontSize: 'clamp(1rem, 4vw, 1.5rem)',
+                                        fontWeight: '300',
+                                        marginBottom: '2rem',
+                                        opacity: 0.9
+                                    }}
+                                >
+                                    {sections[activeSection].subtitle}
+                                </motion.h2>
+
+                                <motion.p
+                                    initial={{ y: 30, opacity: 0 }}
+                                    animate={{ y: 0, opacity: 1 }}
+                                    transition={{ delay: 0.5 }}
+                                    style={{
+                                        fontSize: 'clamp(1rem, 3vw, 1.2rem)',
+                                        lineHeight: 1.6,
+                                        opacity: 0.8,
+                                        marginBottom: '3rem'
+                                    }}
+                                >
+                                    {sections[activeSection].content}
+                                </motion.p>
+
+                                {activeSection === sections.length - 1 && (
+                                    <motion.button
+                                        initial={{ scale: 0 }}
+                                        animate={{ scale: 1 }}
+                                        transition={{ delay: 0.6, type: "spring" }}
+                                        whileHover={{ scale: 1.05 }}
+                                        whileTap={{ scale: 0.95 }}
+                                        style={{
+                                            padding: '15px 40px',
+                                            fontSize: '1.2rem',
+                                            fontWeight: 'bold',
+                                            color: sections[activeSection].bgColor,
+                                            background: 'white',
+                                            border: 'none',
+                                            borderRadius: '50px',
+                                            cursor: 'pointer',
+                                            boxShadow: '0 10px 30px rgba(0,0,0,0.2)'
+                                        }}
+                                    >
+                                        Get Started
+                                    </motion.button>
+                                )}
+                            </motion.div>
+                        </AnimatePresence>
+                    </div>
+
+                    <div style={{
+                        position: 'fixed',
+                        right: '2rem',
+                        top: '50%',
+                        transform: 'translateY(-50%)',
+                        display: 'flex',
+                        flexDirection: 'column',
+                        gap: '1rem',
+                        zIndex: 10
+                    }}>
+                        {sections.map((section, index) => (
+                            <motion.div
+                                key={section.id}
+                                animate={{
+                                    scale: activeSection === index ? 1.5 : 1,
+                                    opacity: activeSection === index ? 1 : 0.5
+                                }}
+                                style={{
+                                    width: '12px',
+                                    height: '12px',
+                                    borderRadius: '50%',
+                                    background: 'white',
+                                    cursor: 'pointer'
+                                }}
+                                onClick={() => {
+                                    const targetScroll = (index / (sections.length - 1)) * 
+                                        (document.documentElement.scrollHeight - window.innerHeight);
+                                    window.scrollTo({ top: targetScroll, behavior: 'smooth' });
+                                }}
+                            />
+                        ))}
+                    </div>
+
+                    <motion.div
+                        animate={{ y: [0, 10, 0] }}
+                        transition={{ repeat: Infinity, duration: 2 }}
+                        style={{
+                            position: 'fixed',
+                            bottom: '2rem',
+                            left: '50%',
+                            transform: 'translateX(-50%)',
+                            color: 'white',
+                            opacity: 0.8,
+                            fontSize: '0.9rem'
+                        }}
+                    >
+                        Scroll to explore
+                    </motion.div>
+                </div>
+            );
+        };
+
+        ReactDOM.render(<MasiInteractiveStory />, document.getElementById('root'));
+    </script>
+</body>
+</html>
