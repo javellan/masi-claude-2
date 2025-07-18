@@ -18,6 +18,13 @@
         #root {
             width: 100%;
         }
+        /* Ensure Lucide icons display properly */
+        .lucide {
+            display: inline-block;
+            width: 1.5rem;
+            height: 1.5rem;
+            vertical-align: middle;
+        }
     </style>
 </head>
 <body>
@@ -35,34 +42,34 @@
             const { useState, useEffect, useRef } = React;
 
             // Icon components using Lucide font
-            const Globe = () => <i className="lucide-globe w-6 h-6"></i>;
-            const Building = () => <i className="lucide-building w-6 h-6"></i>;
-            const School = () => <i className="lucide-school w-6 h-6"></i>;
-            const Brain = () => <i className="lucide-brain w-6 h-6"></i>;
-            const FileText = () => <i className="lucide-file-text w-6 h-6"></i>;
-            const Users = () => <i className="lucide-users w-6 h-6"></i>;
-            const TrendingUp = () => <i className="lucide-trending-up w-6 h-6"></i>;
-            const Smartphone = () => <i className="lucide-smartphone w-6 h-6"></i>;
-            const Languages = () => <i className="lucide-languages w-6 h-6"></i>;
-            const Target = () => <i className="lucide-target w-6 h-6"></i>;
-            const BarChart3 = () => <i className="lucide-bar-chart-3 w-6 h-6"></i>;
-            const Check = () => <i className="lucide-check w-6 h-6"></i>;
-            const User = () => <i className="lucide-user w-6 h-6"></i>;
-            const Settings = () => <i className="lucide-settings w-6 h-6"></i>;
-            const BookOpen = () => <i className="lucide-book-open w-6 h-6"></i>;
-            const Sparkles = () => <i className="lucide-sparkles w-6 h-6"></i>;
-            const Heart = () => <i className="lucide-heart w-6 h-6"></i>;
-            const Zap = () => <i className="lucide-zap w-6 h-6"></i>;
-            const Shield = () => <i className="lucide-shield w-6 h-6"></i>;
-            const ArrowDown = () => <i className="lucide-arrow-down w-6 h-6"></i>;
-            const Eye = () => <i className="lucide-eye w-6 h-6"></i>;
-            const Gauge = () => <i className="lucide-gauge w-6 h-6"></i>;
-            const Activity = () => <i className="lucide-activity w-6 h-6"></i>;
-            const Puzzle = () => <i className="lucide-puzzle w-6 h-6"></i>;
-            const Trophy = () => <i className="lucide-trophy w-6 h-6"></i>;
-            const Flame = () => <i className="lucide-flame w-6 h-6"></i>;
-            const Calendar = () => <i className="lucide-calendar w-6 h-6"></i>;
-            const Star = () => <i className="lucide-star w-6 h-6"></i>;
+            const Globe = () => React.createElement('i', { className: "lucide lucide-globe w-6 h-6" });
+            const Building = () => React.createElement('i', { className: "lucide lucide-building w-6 h-6" });
+            const School = () => React.createElement('i', { className: "lucide lucide-school w-6 h-6" });
+            const Brain = () => React.createElement('i', { className: "lucide lucide-brain w-6 h-6" });
+            const FileText = () => React.createElement('i', { className: "lucide lucide-file-text w-6 h-6" });
+            const Users = () => React.createElement('i', { className: "lucide lucide-users w-6 h-6" });
+            const TrendingUp = () => React.createElement('i', { className: "lucide lucide-trending-up w-6 h-6" });
+            const Smartphone = () => React.createElement('i', { className: "lucide lucide-smartphone w-6 h-6" });
+            const Languages = () => React.createElement('i', { className: "lucide lucide-languages w-6 h-6" });
+            const Target = () => React.createElement('i', { className: "lucide lucide-target w-6 h-6" });
+            const BarChart3 = () => React.createElement('i', { className: "lucide lucide-bar-chart-3 w-6 h-6" });
+            const Check = () => React.createElement('i', { className: "lucide lucide-check w-6 h-6" });
+            const User = () => React.createElement('i', { className: "lucide lucide-user w-6 h-6" });
+            const Settings = () => React.createElement('i', { className: "lucide lucide-settings w-6 h-6" });
+            const BookOpen = () => React.createElement('i', { className: "lucide lucide-book-open w-6 h-6" });
+            const Sparkles = () => React.createElement('i', { className: "lucide lucide-sparkles w-6 h-6" });
+            const Heart = () => React.createElement('i', { className: "lucide lucide-heart w-6 h-6" });
+            const Zap = () => React.createElement('i', { className: "lucide lucide-zap w-6 h-6" });
+            const Shield = () => React.createElement('i', { className: "lucide lucide-shield w-6 h-6" });
+            const ArrowDown = () => React.createElement('i', { className: "lucide lucide-arrow-down w-6 h-6" });
+            const Eye = () => React.createElement('i', { className: "lucide lucide-eye w-6 h-6" });
+            const Gauge = () => React.createElement('i', { className: "lucide lucide-gauge w-6 h-6" });
+            const Activity = () => React.createElement('i', { className: "lucide lucide-activity w-6 h-6" });
+            const Puzzle = () => React.createElement('i', { className: "lucide lucide-puzzle w-6 h-6" });
+            const Trophy = () => React.createElement('i', { className: "lucide lucide-trophy w-6 h-6" });
+            const Flame = () => React.createElement('i', { className: "lucide lucide-flame w-6 h-6" });
+            const Calendar = () => React.createElement('i', { className: "lucide lucide-calendar w-6 h-6" });
+            const Star = () => React.createElement('i', { className: "lucide lucide-star w-6 h-6" });
 
             const MasiScrollStory = () => {
                 const containerRef = useRef(null);
